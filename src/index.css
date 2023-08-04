@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +7,63 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  margin: 0;
+  user-select: none;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.back-primary {
+  background-color: #5463FF;
+}
+
+.back-secondary {
+  background-color: #FFEE78;
+}
+
+.txt-primary {
+  color: #5463FF !important;
+}
+
+.txt-secondary {
+  color: #FFEE78;
+}
+
+.btn-border {
+  border: 4px solid #ffffff;
+}
+
+.font-segoe {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.bottom-add-button {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+}
+.font-primary{
+  font-family: 'Cormorant Garamond', serif;
+}
+.calibri{
+  font-family: 'Calibri',sans-serif;
+}
+.segoe{
+  font-family: 'Segoe UI', sans-serif;
+}
+.pointer{
+  cursor: pointer;
+}
+.list-view-container{
+  display: flex;
+  overflow-x: scroll;
+}
+.list-view-container::-webkit-scrollbar{
+  display: none !important;
 }
