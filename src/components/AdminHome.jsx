@@ -70,10 +70,10 @@ function AdminHome() {
             <Row>
                 <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }} className="my-4 rounded border pb-4 px-3 mb-5">
                     <Divider>Available Categories</Divider>
-                    <Space size={"middle"}>
+                    <Space size={"middle"} className="d-flex flex-wrap">
                         {
                             categories.map((value, index) => {
-                                return <Tag color="blue" key={index} className="my-2" onDoubleClick={()=>{
+                                return <Tag color="blue" key={index} className="mt-2" onDoubleClick={()=>{
                                     var oldArray=[...categories];
                                     oldArray.splice(index,1)
                                     updateCategory(oldArray,dispatch)

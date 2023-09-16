@@ -13,7 +13,7 @@ function Blogs() {
     const blogsByCategory = useSelector((state) => state.Blogs.blogsByCategory);
     // eslint-disable-next-line
     const [searchParams, setSearchParams] = useSearchParams()
-    const category = searchParams?.get('category')?.toLowerCase()
+    const category = searchParams?.get('category')?.toLowerCase().replace("%20"," ")
     const availableCategories = Object.keys(blogsByCategory);
     const [blogPost, setBlogPost] = useState(blogs)
     const dispatch = useDispatch()
@@ -35,6 +35,7 @@ function Blogs() {
             getCategories(dispatch)
             getBlogs(dispatch)
         }
+        console.log(category)
         // eslint-disable-next-line
     }, [])
     return (
@@ -56,7 +57,7 @@ function Blogs() {
                                     <Col span={24} className="mb-3">
                                         <h3 className="font-primary text-center">Searches by ' <span>{category}</span> '</h3>
                                     </Col>
-                                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }} className="mb-5 d-flex justify-content-center align-items-center flex-wrap">
+                                    <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }} className="mb-5 d-flex justify-content-center flex-wrap">
                                         {
                                             blogPost && blogPost.map((blog, index) => {
                                                 return (

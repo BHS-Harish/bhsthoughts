@@ -77,9 +77,14 @@ function Blog() {
                                             })
                                         }
                                     </Col>
-                                    <Col className="mb-5 mt-3" xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }}>
-                                        <iframe style={{width:"100%",height:"auto",aspectRatio:"16/9"}} src={`https://youtube.com/embed/${blog?.videoUrl.substring(17)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowFullScreen></iframe>
-                                    </Col>
+                                    {
+                                        blog?.videoUrl && blog?.videoUrl != "" ?
+                                            <Col className="mb-5 mt-3" xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }}>
+                                                <iframe style={{ width: "100%", height: "auto", aspectRatio: "16/9" }} src={`https://youtube.com/embed/${blog?.videoUrl.substring(17)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowFullScreen></iframe>
+                                            </Col>
+                                            :
+                                            ""
+                                    }
                                 </Row>
                                 :
                                 <div className="w-100 d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
