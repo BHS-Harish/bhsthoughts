@@ -28,6 +28,7 @@ function NavBar() {
                 })
                 message.success('Login successfully 🎉')
                 setTimeout(()=>{
+                    localStorage.setItem("bhsThoughtsAuth",true)
                     navigate('/author/')
                 },1000)
             }

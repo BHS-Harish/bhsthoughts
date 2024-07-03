@@ -15,7 +15,7 @@ function Admin() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
-        if (blogs.length === 0) {
+        if (blogs.length !== 0) {
             getCategories(dispatch)
             getBlogs(dispatch)
         }
@@ -31,6 +31,7 @@ function Admin() {
                                 <Popover placement="bottomRight" title={user.name} content={<Button type="primary" icon={<HiLogout />} className="d-flex justify-centent-center  align-items-center" onClick={() => {
                                     dispatch(updateLoggedOut())
                                     message.success("Logout successfully")
+                                    localStorage.setItem("bhsThoughtsAuth",false)
                                     navigate('/')
                                 }}>Logout</Button>}>
                                     <Avatar src={user.imgUrl} size={50} className="me-2" />

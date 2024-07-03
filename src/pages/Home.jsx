@@ -27,8 +27,8 @@ function Home() {
                     <>
                         <NavBar />
                         <Row className="w-100 overflow-hidden">
-                            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }} className="my-3 mb-5">
-                                <img src={banner} alt="banner-img" style={{ width: "100%", height: "auto" }} />
+                            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }} xl={{ span: 16, offset: 4 }} className="my-3 mt-5 mb-5">
+                                <img className="rounded-5" src={banner} alt="banner-img" style={{ width: "100%", height: "auto" }} />
                             </Col>
                         </Row>
                         <ListView title={"Latest Blogs"} path={"/blogs?category=all"} data={blogs.slice(0, 3)} />

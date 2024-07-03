@@ -19,7 +19,7 @@ function AddNewBlog() {
         const date=new Date();
         const currentDate=date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear();
         const blogPath=((newBlog.title).split(" ").join("-").toLowerCase())
-        if(publishBlog({...newBlog,author:{name,imgUrl},publishedDate:currentDate,blogPath:blogPath},dispatch)){
+        if(publishBlog({...newBlog,author:{name,imgUrl},publishedDate:currentDate,blogPath:blogPath,comments:[],views:0},dispatch)){
             message.success("Blog published")
             setTimeout(()=>{
                 navigate('/author/');

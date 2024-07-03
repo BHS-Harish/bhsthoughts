@@ -1,28 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import { Spin, Result, Button, Row, Col } from "antd";
+import {useSearchParams} from 'react-router-dom'
+import { Spin, Result, Button, Row, Col, Input, message } from "antd";
 import { getCategories } from '../utils/adminUtils';
-import { getBlogs } from "../utils/utils";
+import { getBlogs, addComment,deleteComment,updateViews } from "../utils/utils";
 import { useSelector, useDispatch } from 'react-redux';
 import { AiFillHome } from 'react-icons/ai';
 import { FaShareFromSquare } from 'react-icons/fa6';
+const { TextArea } = Input
 function Blog() {
     const [blog, setBlog] = useState();
     const blogs = useSelector((state) => state.Blogs.blogs);
+    const[viewsAdded,setViewsAdded]=useState(false)
+    const [comment, setComment] = useState("")
     const { blogname } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [messageApi, contextHolder] = message.useMessage();
+    const [searchParams]=useSearchParams()
+    const[isAdmin,setIsAdmin]=useState(false)
+
     useEffect(() => {
         if (blogs.length === 0) {
             getBlogs(dispatch)
             getCategories(dispatch)
         }
+        if(searchParams.get("adminpreview")?.toString()=="true")
+            setIsAdmin(true)
         // eslint-disable-next-line
     }, [dispatch])
     useEffect(() => {
         setBlog((blogs.filter((value) => value.blogPath === blogname.toLowerCase()))[0])
         // eslint-disable-next-line
     }, [blogs])
+    useEffect(()=>{
+        if(blog&&!isAdmin&&!viewsAdded){
+            updateViews(blog?.blogPath,dispatch)
+            setViewsAdded(true)
+        }
+            
+    },[blog])
     async function shareBlog() {
         const shareData = {
             title: blog.title,
@@ -35,8 +52,27 @@ function Blog() {
             console.log(err)
         };
     }
+    const handleAddComment = () => {
+        if (comment.trim()) {
+            if (addComment(blog?.blogPath, comment, dispatch))
+                message.success("Comment added")
+            else
+                message.error("Something went wrong")
+        }
+        else
+            message.error("Please add comment")
+    }
+    const handleDeleteComment=(index)=>{
+        let comments=[...blog?.comments]
+        comments.splice(index,1)
+        if(deleteComment(blog?.blogPath,comments,dispatch))
+            message.success("Comment deleted")
+        else
+            message.error("Comment not deleted")
+    }
     return (
         <>
+            {contextHolder}
             {
                 blogs.length > 0 ?
                     <>
@@ -85,6 +121,41 @@ function Blog() {
                                             :
                                             ""
                                     }
+                                    <Col className="border-top py-5" span={22} offset={1}>
+                                        <div className="w-100">
+                                            <h4 className="font-primary">Comments<span className="calibri fs-5 fw-bold"> ({blog?.comments?.length || 0})</span></h4>
+                                        </div>
+                                        <form className="w-100">
+                                            <TextArea rows={3} placeholder="Add your comments here..." size="large" className="my-3" value={comment} onChange={(e) => {
+                                                setComment(e.target.value)
+                                            }} required></TextArea>
+                                            <div className="d-flex justify-content-end">
+                                                <Button type="primary" onClick={handleAddComment}>Comment</Button>
+                                            </div>
+                                        </form>
+                                        <div className="mt-5">
+                                            {
+                                                blog?.comments && blog?.comments?.map((cmd, index) => {
+                                                    return (
+                                                        <div className="w-100 py-4 border-top comment-container" key={index}>
+                                                            <div className="d-flex justify-content-between align-items-center">
+                                                                <div className="d-flex align-items-center">
+                                                                    <img src="https://avatar.iran.liara.run/public" width={"40"} height={"40"} alt="avatar" />
+                                                                    <h5 className="ms-4 fs-5 font-primary my-0 text-primary fw-bold">Anonymous</h5>
+                                                                </div>
+                                                                {
+                                                                    isAdmin?
+                                                                    <button className="btn btn-danger btn-sm" onClick={()=>{handleDeleteComment(index)}}>Delete</button>:
+                                                                    ""
+                                                                }
+                                                            </div>
+                                                            <p className="w-100 text-justify font-primary fs-5 mt-3">{cmd}</p>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </Col>
                                 </Row>
                                 :
                                 <div className="w-100 d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>

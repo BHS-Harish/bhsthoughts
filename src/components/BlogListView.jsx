@@ -14,8 +14,8 @@ function BlogListView({ blogData }) {
             </div>
             <div className="w-100">
                 <div className='d-flex align-items-center justify-content-end my-2'>
-                    <img src={blogData?.author?.imgUrl} alt={blogData?.author.name} style={{ width: "30px", height: "30px", borderRadius: "50%" }} />
-                    <h6 className='font-primary txt-primary my-0 me-3 ms-2'>{blogData?.author.name}</h6>
+                    <img src={blogData?.author?.imgUrl} alt={blogData?.author?.name} style={{ width: "30px", height: "30px", borderRadius: "50%" }} />
+                    <h6 className='font-primary txt-primary my-0 me-3 ms-2'>{blogData?.author?.name}</h6>
                 </div>
                 <div className='d-flex justify-content-center align-items-center mt-2 mb-4'>
                     <Tag color='#5463FF' className='px-3'>{blogData?.category}</Tag>
